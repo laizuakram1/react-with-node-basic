@@ -20,6 +20,11 @@ const users = [
 app.get('/', (req, res) => {
   res.send('hello love express js!')
 })
+// normal declare of get for users
+// app.get('/users', (req, res) =>{
+//   res.send(users);
+// })
+
 app.get('/users', (req, res) => {
   if(req.query.name){
     const search = req.query.name.toLowerCase();
