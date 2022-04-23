@@ -12,13 +12,26 @@ app.use(bodyParser.json())
 
 const uri = "mongodb+srv://userDb1:AA4f9hFI6MZC6QCd@cluster0.mq9ya.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  console.log('db connected');
-  // perform actions on the collection object
-  client.close();
-});
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   console.log('db connected');
+//   // perform actions on the collection object
+//   client.close();
+// });
+async function run(){
+  try{
+    await client.connect();
 
+    const usersCollection = client.db("familyExpress").collection("user");
+    const user = {name: 'Nabiha', email: 'Nabiha@gmail.com'}
+    const result = await usersCollection.insertOne(user);
+    console.log(`user inserted with id ${result.insertedId}`);
+  }
+  finally{
+    // await client.close();
+  }
+}
+run().catch(console.dir);
 
 
 
